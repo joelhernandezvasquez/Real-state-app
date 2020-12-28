@@ -52,9 +52,9 @@ async function getProperty(){
                                 <p>  ${property.address.line} ${property.address.city} ${property.address.country} ${property.address.postal_code}</p>
                             
                                 <div class="card-specs">
-                                    <span> ${property.community.beds_max} Beds</span>
-                                    <span> ${property.community.baths_max} Bath  </span>
-                                    <span> ${property.community.sqft_max} Sqft </span>
+                                    <span> <i class="fa fa-bed" aria-hidden="true"></i> ${property.community.beds_max} Beds</span>
+                                    <span> <i class="fa fa-bath" aria-hidden="true"></i>${property.community.baths_max} Bath  </span>
+                                    <span><i class="fa fa-square-o" aria-hidden="true"></i> ${property.community.sqft_max} Sqft </span>
                                 </div>
                                 
                                 `
