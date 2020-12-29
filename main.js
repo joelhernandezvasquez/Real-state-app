@@ -1,5 +1,7 @@
 const btnSearch = document.querySelector(".btn-search");
 const dataSection = document.querySelector(".inner-data-container");
+const minBudgetRange = document.querySelector(".min-budget");
+const maxBudgetRange = document.querySelector(".max-budget");
 
 
 
@@ -20,6 +22,9 @@ async function getProperty(){
       const response = await fetch(`http://www.mapquestapi.com/geocoding/v1/address?key=q9Ua8EhW7dI40qBt0UUqQzY9ZL8flZt4&location=${getUserSearch()}`);
       const data = await response.json();
       const stateCode = data.results[0].locations[0].adminArea3;
+
+      dataSection.innerHTML = ' ';
+      
      
     fetch(`https://realtor.p.rapidapi.com/properties/v2/list-for-rent?city=${getUserInputEncoded()}&state_code=${stateCode}&limit=200&offset=0&sort=relevance`, {
         "method": "GET",
@@ -32,8 +37,10 @@ async function getProperty(){
     .then((data)=>{
       
        
-       const properties = data.properties.filter(element => element.community !=undefined);
-       dataSection.innerHTML = '';
+       const properties = data.properties.filter(element => ((element.community !=undefined) && (element.community.price_min >=minBudgetRange.value && element.community.price_min <=maxBudgetRange.value )));
+
+       
+       
       
        properties.forEach(property => {
           
@@ -45,8 +52,9 @@ async function getProperty(){
                                   </div>
 
                                  <div class="card-name-price">
-                                    <h2> ${property.community.name} </h2>
-                                    <span id="price"> $ ${property.community.price_min}</span>
+                                    <h2> ${property.address.neighborhood_name} </h2>
+                                    
+                                    <span id="price"> $ ${ getPriceProperty(property.community.price_min)}</span>
                                  </div> 
                             
                                 <p>  ${property.address.line} ${property.address.city} ${property.address.country} ${property.address.postal_code}</p>
@@ -73,7 +81,16 @@ async function getProperty(){
     
 }
 
-
+const getPriceProperty =(price) =>{
+   
+    if(price!=undefined)
+     return price;
+    
+     else
+    
+         return "undefined"   
+        
+}
 
 
 

@@ -43,17 +43,35 @@
                     <div class="divider"></div>
 
                     <div class="budget-range-container">
-                        <label for="budget"> Badget Range</label>
+                        <label for="budget" id="budget-lbl"> Badget Range</label>
                         
-                        <select name="budget" class="budget">
+                        <label> min</label>
+                        <select name="budget" class="min-budget">
+                         <option value="1000"> $1000</option>
+                         <option value="1500"> $1500</option>
                           <option value="2000"> $2000</option>
+                          <option value="2500"> $2500</option>
                           <option value="3000"> $3000</option>
+                          <option value="3500"> $3500</option>
                           <option value="4000"> $4000</option>
+                          <option value="4500"> $4500</option>
+                          <option value="5000"> $5000</option>
+                        </select>
+
+                        <label> max</label>
+                        <select name="budget" class="max-budget">
+                         <option value="1500"> $1500</option>
+                          <option value="2000"> $2000</option>
+                          <option value="2500"> $2500</option>
+                          <option value="3000"> $3000</option>
+                          <option value="3500"> $3500</option>
+                          <option value="4000"> $4000</option>
+                          <option value="4500"> $4500</option>
                           <option value="5000"> $5000</option>
                         </select>
                     </div>
                     
-                    <button class="btn-search"> <a href="#data">Search</a></button>
+                    <a href="#data" class="btn-search"> Search</a>
                 </div>
            </div>
        </div>
