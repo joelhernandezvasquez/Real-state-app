@@ -2,8 +2,18 @@ const btnSearch = document.querySelector(".btn-search");
 const dataSection = document.querySelector(".inner-data-container");
 const minBudgetRange = document.querySelector(".min-budget");
 const maxBudgetRange = document.querySelector(".max-budget");
+const overlay = document.querySelector(".overlay");
+const headline = document.querySelector(".data-section h1");
+const scroll = new SmoothScroll('a[href*="#"]', {
+    speed: 1000
+});
 
 
+
+function init()
+{
+ overlay.classList.add("active"); 
+}
 
 function getUserInputEncoded()
 {
@@ -23,7 +33,9 @@ async function getProperty(){
       const data = await response.json();
       const stateCode = data.results[0].locations[0].adminArea3;
 
-      dataSection.innerHTML = ' ';
+    init();
+     
+    dataSection.innerHTML = ' ';
       
      
     fetch(`https://realtor.p.rapidapi.com/properties/v2/list-for-rent?city=${getUserInputEncoded()}&state_code=${stateCode}&limit=200&offset=0&sort=relevance`, {
@@ -41,7 +53,9 @@ async function getProperty(){
 
        
        
-      
+        overlay.classList.remove("active");
+        headline.style.display = "block";
+        
        properties.forEach(property => {
           
           const propertyCard = document.createElement("div");
@@ -66,7 +80,7 @@ async function getProperty(){
                                 </div>
                                 
                                 `
-
+        
            dataSection.appendChild(propertyCard);
 
        }); 
