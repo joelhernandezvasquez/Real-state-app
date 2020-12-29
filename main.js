@@ -54,7 +54,7 @@ async function getProperty(){
        
        
         overlay.classList.remove("active");
-        headline.style.display = "block";
+       
         
        properties.forEach(property => {
           
@@ -82,6 +82,7 @@ async function getProperty(){
                                 `
         
            dataSection.appendChild(propertyCard);
+            animation(propertyCard);
 
        }); 
      
@@ -104,6 +105,29 @@ const getPriceProperty =(price) =>{
     
          return "undefined"   
         
+}
+
+function animation(card)
+{
+    let timeline = gsap.timeline();
+     
+    timeline.fromTo(".data-section .container h1", {
+        opacity: 0
+    },
+        {
+            opacity: 1,
+            duration: 1
+        })
+        .fromTo(card, {
+            opacity: 0,
+            y:0
+
+        }, {
+                opacity: 1,
+            y:-50,
+                stagger: 1,
+            duration:0.5
+    })
 }
 
 
