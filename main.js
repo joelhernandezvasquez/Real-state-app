@@ -1,3 +1,4 @@
+
 const btnSearch = document.querySelector(".btn-search");
 const dataSection = document.querySelector(".inner-data-container");
 const minBudgetRange = document.querySelector(".min-budget");
@@ -10,22 +11,32 @@ const scroll = new SmoothScroll('a[href*="#"]', {
 
 
 
-function init()
+const init = () =>
 {
- overlay.classList.add("active"); 
+    overlay.classList.add("active"); 
+    headline.style.opacity = 0;
 }
 
-function getUserInputEncoded()
+const getUserInputEncoded = () =>
 {
     const searchText = document.querySelector("#search-txt").value;
     return encodeURIComponent(searchText);
 }
 
-function getUserSearch()
+const getUserSearch = () =>
 {
     return document.querySelector("#search-txt").value;
 }
 
+function clearOutDataSection()
+{
+    dataSection.innerHTML = ' ';
+}
+
+function removeOverlay()
+{
+    overlay.classList.remove("active");
+}
 
 async function getProperty(){
     
@@ -33,10 +44,8 @@ async function getProperty(){
       const data = await response.json();
       const stateCode = data.results[0].locations[0].adminArea3;
 
-    init();
-     
-    dataSection.innerHTML = ' ';
-      
+        init();
+        clearOutDataSection();
      
     fetch(`https://realtor.p.rapidapi.com/properties/v2/list-for-rent?city=${getUserInputEncoded()}&state_code=${stateCode}&limit=200&offset=0&sort=relevance`, {
         "method": "GET",
@@ -48,14 +57,11 @@ async function getProperty(){
     .then((response)=> response.json())
     .then((data)=>{
       
+       const properties = data.properties.filter(element => ((element.community !=undefined) && (element.community.price_min >=minBudgetRange.value && element.community.price_min <=maxBudgetRange.value )))
+     
        
-       const properties = data.properties.filter(element => ((element.community !=undefined) && (element.community.price_min >=minBudgetRange.value && element.community.price_min <=maxBudgetRange.value )));
-
+       removeOverlay();
        
-       
-        overlay.classList.remove("active");
-       
-        
        properties.forEach(property => {
           
           const propertyCard = document.createElement("div");
@@ -86,13 +92,11 @@ async function getProperty(){
 
        }); 
      
-       
-
 
     }) 
     .catch(err => {
         console.error(err);
-    }); 
+    });  
     
 }
 

@@ -345,17 +345,18 @@ h1 {
 
 .loader {
   display: block;
-  position: absolute;
-  width: 300px;
-  height: 300px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
-  top: 100px;
-  left: 600px;
   z-index: 1;
   border: 16px solid #f3f3f3;
   border-top: 16px solid #0f1b4c;
   -webkit-animation: spin 1.5s linear infinite;
           animation: spin 1.5s linear infinite;
+}
+
+.loader h2 {
+  color: white;
 }
 
 @-webkit-keyframes spin {
@@ -385,13 +386,33 @@ h1 {
   height: 100vh;
   background: #0688ff;
   display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   position: absolute;
   top: 0;
   left: 0;
   opacity: 0.6;
+  padding-top: 4rem;
+}
+
+.overlay * {
+  margin: 20px 0;
+}
+
+.overlay h2 {
+  color: white;
+  font-size: 2rem;
+  letter-spacing: 1px;
 }
 
 .active.overlay {
-  display: block;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 /*# sourceMappingURL=style.css.map */
