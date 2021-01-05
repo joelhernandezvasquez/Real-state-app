@@ -38,14 +38,18 @@ function removeOverlay()
     overlay.classList.remove("active");
 }
 
-async function getProperty(){
-    
-      const response = await fetch(`http://www.mapquestapi.com/geocoding/v1/address?key=q9Ua8EhW7dI40qBt0UUqQzY9ZL8flZt4&location=${getUserSearch()}`);
-      const data = await response.json();
-      const stateCode = data.results[0].locations[0].adminArea3;
+const getStateCode = () =>{
+    return fetch(`http://www.mapquestapi.com/geocoding/v1/address?key=q9Ua8EhW7dI40qBt0UUqQzY9ZL8flZt4&location=${getUserSearch()}`)
+           .then((response)=> response.json())
+           .then((data) => data.results[0].locations[0].adminArea3)
+}
 
+async function getProperty(){
+       
         init();
         clearOutDataSection();
+        const stateCode = await getStateCode();
+       
      
     fetch(`https://realtor.p.rapidapi.com/properties/v2/list-for-rent?city=${getUserInputEncoded()}&state_code=${stateCode}&limit=200&offset=0&sort=relevance`, {
         "method": "GET",
